@@ -1,15 +1,30 @@
-import Head from 'next/head'
+import { CompletedChallenges } from "../components/CompletedChallenges";
+import { Countdown } from "../components/Countdown";
 import {ExperienceBar} from "../components/ExperienceBar";
+import { Profile } from '../components/Profile';
+
+import Head from 'next/head';
+
+import styles from '../styles/pages/Home.module.css'
 
 export default function Home() {
   return (
-    <div className="container">
-    <Head>
-          <link href="https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900" rel="stylesheet" />
-          <link href="https://fonts.googleapis.com/css?family=Rajdhani:300,regular,500,600,700" rel="stylesheet" />
-    </Head>
-
+    <div className={styles.container}>
+      <Head>
+        <title>Inicio | move.it</title>
+      </Head>
       <ExperienceBar />
+
+      <section>
+        <div>
+          <Profile />
+          <CompletedChallenges />
+          <Countdown />
+        </div>
+        <div>
+
+        </div>
+      </section>
     </div>
   )
 }
