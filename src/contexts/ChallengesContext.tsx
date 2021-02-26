@@ -40,7 +40,7 @@ export function ChallengesProvider({
   const [currentExperience, setCurrentExperience] = useState(rest.currentExperience ?? 0);
   const [challengesCompleted, setChallengesCompleted] = useState(rest.challengesCompleted ?? 0);
 
-  const [activechallenge, setActiveChallenge] = useState(null)
+  const [activechallenge, setActiveChallenge] = useState<Challenge>(null)
   const [isLevelUpModalOpen, setIsLevelUpModalOpen] = useState(false)
 
   const experienceToNextLevel = Math.pow((level + 1) * 4 ,2)
@@ -51,8 +51,8 @@ export function ChallengesProvider({
 
   useEffect(() => {
     Cookies.set('level', String(level));
-    Cookies.set('level', String(currentExperience));
-    Cookies.set('level', String(challengesCompleted));
+    Cookies.set('currentExperience', String(currentExperience));
+    Cookies.set('challengesCompleted', String(challengesCompleted));
   },[level, currentExperience, challengesCompleted]);
 
   function levelUp(){
@@ -65,16 +65,17 @@ export function ChallengesProvider({
   }
 
   function startNewChallenge(){
-    const randomChanllengeIndex = Math.floor(Math.random() * challenges.length)
-    const challenge = challenges[randomChanllengeIndex];
+    const randomChallengeIndex = Math.floor(Math.random() * challenges.length)
+    const challenge = challenges[randomChallengeIndex];
 
-    setActiveChallenge(challenge)
+    setActiveChallenge(challenge as Challenge)
 
     new Audio('/notification.mp3').play();
 
     if(Notification.permission === 'granted'){
       new Notification('Novo desafio', {
-        body: `Valendo ${challenge.amount}xp!`
+        body: `Valendo ${challenge.amount}xp!`,
+        silent: false,
       })
     }
   }
